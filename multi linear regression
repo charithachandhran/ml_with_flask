@@ -1,0 +1,25 @@
+
+
+import statsmodels.formula.api as smf
+import pandas as pd
+
+# Sample data (replace with your actual data)
+data = {'MPG': [18, 15, 18, 16, 17, 15, 14, 14, 14, 15],
+        'WT': [3504, 3693, 3436, 3439, 3474, 4141, 3797, 3710, 3362, 3233],
+        'VOL': [70, 105, 105, 75, 75, 50, 65, 90, 90, 80],
+        'SP': [109, 84, 103, 93, 103, 104, 107, 89, 91, 111],
+        'HP': [105, 245, 245, 225, 190, 170, 150, 175, 105, 175]}
+cars = pd.DataFrame(data)
+
+# Fit the multilinear regression model
+model = smf.ols("MPG ~ WT + VOL + SP + HP", data=cars).fit()
+
+# Print model parameters
+print(model.params)
+
+# Print t-values and p-values
+print(model.tvalues, '\n', model.pvalues)
+
+# Fit a reduced model (example)
+ml_wv = smf.ols('MPG ~ WT + VOL', data=cars).fit()
+print(ml_wv.tvalues, '\n', ml_wv.pvalues)
