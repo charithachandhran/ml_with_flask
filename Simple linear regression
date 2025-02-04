@@ -1,0 +1,14 @@
+import statsmodels.formula.api as smf
+import pandas as pd
+
+data = {'MPG': [18, 15, 18, 16, 17, 15, 14, 14, 14, 15],
+        'VOL': [100, 120, 110, 115, 105, 130, 125, 135, 140, 130]}
+cars = pd.DataFrame(data)
+
+ml_v = smf.ols("MPG ~ VOL", data=cars).fit()
+
+print("T-values:\n", ml_v.tvalues)
+print("\nP-values:\n", ml_v.pvalues)
+
+print("\nR-squared:", ml_v.rsquared)
+print("Adjusted R-squared:", ml_v.rsquared_adj)
